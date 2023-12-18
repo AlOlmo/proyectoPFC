@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,6 +42,7 @@ export class MainTableComponent implements OnInit {
   initialData!: ValuesByCompany[];
   allSymbols!: string[];
   userLists!: UserList[];
+  @Input() logedIn?: boolean = false
 
   constructor(private listService: ListService) {
     this.ngOnInit()

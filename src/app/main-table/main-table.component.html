@@ -3,8 +3,10 @@
     <app-company-list [displaySymbols]="allSymbols"></app-company-list>
   </mat-tab>
   <div *ngFor="let userList of userLists">
-    <mat-tab [label]="userList.name">
-      <app-company-list [displaySymbols]="userList.symbols"></app-company-list>
-    </mat-tab>
+    <div *ngIf="logedIn">
+      <mat-tab [label]="userList.name">
+        <app-company-list [displaySymbols]="userList.symbols"></app-company-list>
+      </mat-tab>
+    </div>
   </div>
 </mat-tab-group>
