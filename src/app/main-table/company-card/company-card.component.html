@@ -7,4 +7,13 @@
             {{lastValue().price}} €
         </mat-panel-description>
     </mat-expansion-panel-header>
+    <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [yaxis]="chartOptions.yaxis!"
+          [title]="chartOptions.title!"
+        ></apx-chart>
+      </div>
 </mat-expansion-panel>

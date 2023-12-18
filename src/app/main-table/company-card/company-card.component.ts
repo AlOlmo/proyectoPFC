@@ -11,6 +11,26 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatNativeDateModule} from '@angular/material/core';
 import { StockValue } from '../../../model/entities/values'
 import { CommonModule } from '@angular/common';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { BrowserModule } from "@angular/platform-browser";
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexYAxis,
+  ApexXAxis,
+  ApexTitleSubtitle
+} from "ng-apexcharts";
+import { OnInit } from '@angular/core';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  title: ApexTitleSubtitle;
+};
+
 
 
 @Component({
@@ -22,31 +42,16 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,CommonModule],
+    MatNativeDateModule,CommonModule, CommonModule, NgApexchartsModule],
   templateUrl: './company-card.component.html',
   styleUrl: './company-card.component.css'
 })
-export class CompanyCardComponent {
-
+export class CompanyCardComponent implements OnInit {
+  @ViewChild("chart") chart!: ChartComponent;
+  public chartOptions!: Partial<ChartOptions>;
   panelOpenState = false;
 
-  @Input() company: ValuesByCompany = { 
-    company: {
-      name: "BBVA",
-      symbol: "BBVA"
-    }, 
-    values: [
-        {
-          symbol: "BBVA",
-          date: "2023-12-12",
-          price: 11.11,
-          variation: 2.2,
-          maxValue: 33.33,
-          minValue: 10.00,
-          openValue: 15.55,
-      }
-    ]
-  }
+  @Input() company!: ValuesByCompany
 
   lastValue(): StockValue {
     return this.company.values.sort((a, b) => {
@@ -56,4 +61,53 @@ export class CompanyCardComponent {
     })[0];
   }
 
+  ngOnInit() {
+    console.log(this.company)
+    this.chartOptions = {
+      series: [
+        {
+          name: "candle",
+          data: this.company.values.map(value => {
+            return {
+              x: new Date(value.date),
+              y: [value.openValue, value.maxValue, value.minValue, value.price]
+            }
+          })
+        }
+      ],
+      chart: {
+        type: "candlestick",
+        height: 350
+      },
+      title: {
+        text: "CandleStick Chart",
+        align: "left"
+      },
+      xaxis: {
+        type: "datetime"
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true
+        }
+      }
+    };
+  }
+
+
+  /*
+  public generateDayWiseTimeSeries(baseval, count, yrange) {
+    var i = 0;
+    var series = [];
+    while (i < count) {
+      var y =
+        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+      series.push([baseval, y]);
+      baseval += 86400000;
+      i++;
+    }
+    return series;
+  }
+  */
 }
