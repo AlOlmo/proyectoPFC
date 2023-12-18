@@ -7,7 +7,7 @@
             {{lastValue().price}} €
         </mat-panel-description>
     </mat-expansion-panel-header>
-    <div id="chart">
+    <div id="chart" *ngIf="panelOpenState">
         <apx-chart
           [series]="chartOptions.series!"
           [chart]="chartOptions.chart!"
