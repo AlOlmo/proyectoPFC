@@ -1,11 +1,7 @@
 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
-        <mat-panel-title>
-            {{company.company.name}}
-        </mat-panel-title>
-        <mat-panel-description>
-            {{lastValue().price}} €
-        </mat-panel-description>
+        <mat-panel-title>{{company.company.name}}</mat-panel-title>
+        <mat-panel-description>{{lastValue().price}} €</mat-panel-description>
     </mat-expansion-panel-header>
     <div id="chart" *ngIf="panelOpenState">
         <apx-chart
@@ -13,7 +9,7 @@
           [chart]="chartOptions.chart!"
           [xaxis]="chartOptions.xaxis!"
           [yaxis]="chartOptions.yaxis!"
-          [title]="chartOptions.title!"
-        ></apx-chart>
+          [title]="chartOptions.title!">
+        </apx-chart>
       </div>
 </mat-expansion-panel>

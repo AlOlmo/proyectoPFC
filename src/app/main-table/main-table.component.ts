@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,8 +14,12 @@ import { CompanyCardComponent } from './company-card/company-card.component';
 import {MatCardModule} from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import {MatTabsModule} from "@angular/material/tabs";
+import {CompanyListComponent} from "./company-list/company-list.component";
+import {ListService} from "../../model/services/list.service";
+import {UserList} from "../../model/entities/userlist";
 
- 
+
 
 
 @Component({
@@ -29,51 +33,23 @@ import { MatSelectModule } from '@angular/material/select';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
-  imports: [MatListModule, CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, CompanyCardComponent, HttpClientModule, MatExpansionModule],
+  imports: [MatListModule, CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, CompanyCardComponent, HttpClientModule, MatExpansionModule, MatTabsModule, CompanyListComponent],
   styleUrl: './main-table.component.css',
-  providers: [BackendService]
+  providers: [ListService]
 })
-export class MainTableComponent {
-  initialData: ValuesByCompany[] = [];
-  filteredData: ValuesByCompany[] = [];
-  //valuesData: Values[] = [];
-  columnsToDisplay = ['company', 'symbol', 'price'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement: null = null;
+export class MainTableComponent implements OnInit {
 
-  constructor(private backendService: BackendService) { }
+  initialData!: ValuesByCompany[];
+  allSymbols!: string[];
+  userLists!: UserList[];
+
+  constructor(private listService: ListService) {
+    this.ngOnInit()
+  }
 
   ngOnInit() {
-    this.loadData();
+    this.userLists = this.listService.getUserLists("user-token")
   }
-
-  loadData() {
-    this.backendService.getValuesByCompany().subscribe(valuesByCompany => {
-      this.initialData = valuesByCompany
-      this.filteredData = this.initialData
-    })
-    /*
-    this.http.get<Values[]>(apiUrlData).subscribe(data2 => {
-      this.valuesData = data2.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-
-        return dateB.getTime() - dateA.getTime();
-      });
-      console.log(this.valuesData);
-    });
-*/
-  }
-  
-  /*Filtro del buscador*/ 
-  applyFilter(event: Event) {
-      console.log(this.filteredData)
-      const filterValue = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
-      this.filteredData = this.initialData.filter(companyWithValues => 
-        companyWithValues.company.name.toLocaleLowerCase().includes(filterValue) || 
-        companyWithValues.company.symbol.toLocaleLowerCase().includes(filterValue)
-      )
-    }
 
 }
 

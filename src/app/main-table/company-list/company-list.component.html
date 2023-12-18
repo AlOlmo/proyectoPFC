@@ -1,0 +1,10 @@
+<div class="container">
+  <mat-form-field id="filtro">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <div class="card" *ngFor="let company of filteredData">
+    <app-company-card [company]="company"></app-company-card>
+  </div>
+</div>

@@ -1,3 +1,13 @@
-mat-list-item:nth-child(n){
-  height: 100px;
+.container {
+  margin: 40px;
+}
+
+.card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 500px;
+  min-width: 50%;
 }
