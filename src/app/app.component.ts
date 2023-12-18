@@ -15,4 +15,9 @@ import { FooterComponent } from "./footer/footer.component";
 })
 export class AppComponent {
   title = 'proyectoPFC';
+  loggedIn: boolean = false;
+
+  processLoginEvent(newValue: boolean) {
+    this.loggedIn = newValue
+  }
 }

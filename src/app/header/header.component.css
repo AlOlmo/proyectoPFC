@@ -2,26 +2,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to top, #333, #000); 
+    background: linear-gradient(to top, #333, #000);
     color: white;
     height: 100px;
-    padding: 0 20px; 
+    padding: 0 20px;
   }
-  
+
   .left-buttons,
   .right-buttons {
-    
+
     display: flex;
     align-items: center;
   }
-  
+
   .right-buttons button {
     background-color:lightgray;
     width: 160px;
     height: 65px;
-    margin-left: 40px; 
+    margin-left: 40px;
   }
-  
+
   .title {
-    font-size: 20px; 
+    font-size: 20px;
+  }
+
+  .name-wrapper {
+    margin-left: 15px;
+    margin-right: 15px;
   }

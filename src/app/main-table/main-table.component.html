@@ -1,8 +1,10 @@
-<mat-form-field id="filtro">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" #input>
-</mat-form-field>
-
-<div *ngFor="let company of filteredData">
-  <app-company-card [company]="company"></app-company-card>
-</div>
+<mat-tab-group>
+  <mat-tab label="Todo">
+    <app-company-list [displaySymbols]="allSymbols"></app-company-list>
+  </mat-tab>
+  <div *ngFor="let userList of userLists">
+    <mat-tab [label]="userList.name">
+      <app-company-list [displaySymbols]="userList.symbols"></app-company-list>
+    </mat-tab>
+  </div>
+</mat-tab-group>

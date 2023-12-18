@@ -62,7 +62,6 @@ export class CompanyCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.company)
     this.chartOptions = {
       series: [
         {
